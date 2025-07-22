@@ -11,9 +11,9 @@
 #' @return A data frame with PMBL + DLBCL + DHIT sig calls and their related values. At the same time, this function writes result table 
 #'   into the same path of input data, also writes one row heading data table as well heading info table if input file contains two heading rows.
 #' @keywords DLBCL90 nano-string 
+#' @importFrom utils read.csv write.csv
 #' @author Aixiang Jiang
 #' @export
-
 
 DLBCL90calls = function(DLBCL90_File, outfileName, nHeading = 2, geomeanCut = 60){
   

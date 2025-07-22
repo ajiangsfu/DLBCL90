@@ -29,10 +29,7 @@ This function includes the following steps:
  3) remove the rows with POS and NEG (control), use grep to get the rows and remove
  4) read in house keeping genes, and use subset to get house keeping genes' subset data: housedat
  5) for the house keeping genes, get: house_geomean = apply(housedat, 2, FUN = function(xx) exp(mean(log(xx))))
- 6) get data for DHITsig calls:
-   outdat = mapply(FUN = function(xx,hgmean){
-   log2(xx*1000/hgmean)
-   },dat,house_geomean)
+ 6) get data for DHITsig calls
  7) return a list with two columns: 
    i) one for data in step 1 that for PMBL/DLBCL calls 
    ii) the other one: step 6 outdat, is for DHITsig calls

@@ -6,10 +6,11 @@
 #'   The file itself contains two or more rows of heading, which is not usually data format for R, but we need it for nano string DLBCL90 to make
 #'   sure we have enough information
 #' @return A string vector containing two items, the 1st one is the regular data format name, and the 2nd one is the file name with extra sample info
+#' @importFrom utils read.csv write.csv
+#' @importFrom stats na.omit
 #' @keywords nano string 
 #' @author Aixiang Jiang
 #' @export
-
 
 conv2NamesFile = function(fileIn){
   

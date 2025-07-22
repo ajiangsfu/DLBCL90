@@ -11,7 +11,8 @@
 #'  the calibration is reversed.
 #' @return A data frame with normval, PMBLval, PMBLp, PMBLcall, DLBCLval, DLBCLp, DLBCLcall, Totalcall
 #' @keywords LPS PMBL DLBCL
-#' @author Stacy Hung (function), Aixiang Jiang (function desciption)
+#' @author Stacy Hung (function), Aixiang Jiang (function description)
+#' @importFrom stats dnorm
 #' @references Wright G, Tan B, Rosenwald A, Hurt EH, Wiestner A, Staudt LM. A gene expression-based method
 #' to diagnose clinically distinct subgroups of diffuse large B cell lymphoma. Proc Natl Acad Sci U S
 #' A. 2003 Aug 19;100(17):9991-6.

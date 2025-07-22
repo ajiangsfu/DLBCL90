@@ -50,6 +50,7 @@
 #'  the median value of the chose direction with "byrow" data to be used
 #' @return A data frame with LPS score, Empirical Bayesian probabilites for two groups and classification
 #' @keywords LPS
+#' @importFrom stats quantile sd
 #' @author Aixiang Jiang
 #' @references Wright G, Tan B, Rosenwald A, Hurt EH, Wiestner A, Staudt LM. A gene expression-based method
 #' to diagnose clinically distinct subgroups of diffuse large B cell lymphoma. Proc Natl Acad Sci U S

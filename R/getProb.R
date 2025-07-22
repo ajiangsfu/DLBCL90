@@ -22,6 +22,7 @@
 #' @param groupSds a numeric vector of two items: two classification score standard deviations for two training groups/classes
 #' @return A probability for a sample belong to a group
 #' @keywords Empirical Bayes' probability
+#' @importFrom stats dnorm
 #' @author Aixiang Jiang
 #' @references
 #' Wright G, Tan B, Rosenwald A, Hurt EH, Wiestner A, Staudt LM. A gene expression-based method
