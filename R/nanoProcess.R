@@ -1,0 +1,59 @@
+#' Processing nano string data before PMBL, DLBCL, DHITsig calls
+#' @description  This is the 1st step for nano string data analysis, this has to be done before any classification calls
+#' @details This function includes the following steps:
+#'  1) remove the Annotation column, which contains no value -> this will be the data for PMBL/DLBCL calls
+#'  2) save a copy of above the data, and then work on the following steps:
+#'  3) remove the rows with POS and NEG (control), use grep to get the rows and remove
+#'  4) read in house keeping genes, and use subset to get house keeping genes' subset data: housedat
+#'  5) for the house keeping genes, get: house_geomean = apply(housedat, 2, FUN = function(xx) exp(mean(log(xx))))
+#'  6) get data for DHITsig calls:
+#'    outdat = mapply(FUN = function(xx,hgmean){
+#'    log2(xx*1000/hgmean)
+#'    },dat,house_geomean)
+#'  7) return a list with two columns: 
+#'    i) one for data in step 1 that for PMBL/DLBCL calls 
+#'    ii) the other one: step 6 outdat, is for DHITsig calls
+#' @param nano_csv_File A nano string data file name, which can be assoicated with an absolute path or a relative path starting from your current path
+#'  For example, my current path is: "/mnt/thanos_lv/ajiang/AJ2019"
+#'  the file name can be: "/mnt/thanos_lv/ajiang/AJ2019/DHIT/DLBCL90 cartridges 60 to 67.csv"
+#'   or: "DHIT/DLBCL90 cartridges 60 to 67.csv"
+#' @return A list contains three items, the 1st item is a data frame for PMBL/DLBCL calls, the 2nd item is a data frame for DHITsig calls, 
+#'   and the 3rd item is the sample house keeping genes geometric means
+#'  \item{COOdat}{A data frame that is ready for PMBL/DLBCL calls}
+#'  \item{DHITdat}{A data frame that is ready for DHITsig calls}
+#'  \item{house_geomean}{A named numeric vector of house keeping genes geometric means}
+#' @keywords nano string 
+#' @author Aixiang Jiang
+#' @export
+nanoProcess = function(nano_csv_File){
+  nanoDat = read.csv(nano_csv_File, header=T, row.names = 1, stringsAsFactors = F)
+  tmp = grep("Annotation", colnames(nanoDat))
+  if(length(tmp)>0){
+    nanoDat = nanoDat[, -tmp]
+  }
+  
+  outdat = nanoDat
+  
+  ### remove POS and NEG control wells
+  tmp1 = grep("POS", rownames(outdat))
+  tmp2 = grep("NEG", rownames(outdat))
+  outdat = outdat[-c(tmp1,tmp2),]  ### 90 rows, this is true DLC90!
+  
+  load(system.file("extdata", "houseGene.rda", package = "DLBCL90"))
+
+  housedat = outdat[houseGene,]
+  house_geomean = apply(housedat, 2, FUN = function(xx) exp(mean(log(xx))))
+  
+  genenames = rownames(outdat)
+ 
+  outdat = mapply(FUN = function(xx,hgmean){
+      log2(xx*1000/hgmean)
+  },outdat,house_geomean)
+  
+  rownames(outdat) = genenames
+  
+  outs = list(nanoDat, data.frame(outdat), house_geomean)
+  names(outs) = c("COOdat","DHITdat","house_geomean")
+  
+  return(outs)
+}

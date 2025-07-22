@@ -1,0 +1,19 @@
+Package: DLBCL90
+Type: Package
+Title: Lymph3CX and DHITsig classification
+Version: 1.1.0
+Author: Aixiang Jiang, Stacy Hung, George Wright, David Scott 
+Maintainer: Aixiang Jiang <aijiang@bccrc.ca>
+Depends: R (>= 3.5)
+Suggests: knitr
+VignetteBuilder: knitr
+Imports: nanostringr
+Description: 
+    This package calculates LPS (Linear Prediction Score), Empirical Bayes' probabilities, 
+    make Lymph3CX and DHITsig classification for nano string data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+NeedsCompilation: no
+Packaged: 2020-11-17 23:23:34 UTC; ajiang
